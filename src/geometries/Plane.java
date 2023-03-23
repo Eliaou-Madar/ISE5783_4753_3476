@@ -12,6 +12,7 @@ public class Plane implements Geometry {
         return null;
     }
 
+
     @Override
     public Vector getNormal(Point p1) {
         return null;

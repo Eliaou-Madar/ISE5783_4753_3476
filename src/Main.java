@@ -8,8 +8,8 @@ import primitives.Vector;
 
 /** Test program for the 1st stage
  * @author Dan Zilberstein
- * Eliaou
- * Etamar */
+ * Eliaou 1954753
+ * Etamar 326063476*/
 public final class Main {
 
    /** Main program to tests initial functionality of the 1st stage

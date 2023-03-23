@@ -20,6 +20,12 @@ public class Point {
         xyz = new Double3(x,y,z);
     }
 
+    /** Make the addition between tow Point
+     *
+     * @param sec a Point
+     * @return a Point of the addition between tow Point
+     */
+
     public Vector subtract(Point sec){
 
         Double3 temp = this.xyz.subtract(sec.xyz);
@@ -27,6 +33,11 @@ public class Point {
         return new Vector(temp);
     }
 
+    /** Make the addition between tow Point
+     *
+     * @param sec a Point
+     * @return a Point of the addition between tow Point
+     */
     public Point add(Point sec){
 
         Double3 temp = this.xyz.add(sec.xyz);
@@ -34,16 +45,32 @@ public class Point {
         return new Point(temp);
     }
 
+    /** make the distance between tow Point
+     *
+     * @param sec a Point
+     * @return distance (double) between tow Point without sqrt
+     */
+
     public double distanceSquared(Point sec){
 
         return ((sec.xyz.d3 - this.xyz.d3)*(sec.xyz.d3 - this.xyz.d3) + (sec.xyz.d2 - this.xyz.d2)*(sec.xyz.d2 - this.xyz.d2) +(sec.xyz.d1 - this.xyz.d1)*(sec.xyz.d1 - this.xyz.d1));
     }
 
+    /** make the distance between tow Point and make the sqrt
+     *
+     * @param sec a Point
+     * @return distance (double)  between tow Point
+     */
     public double distance(Point sec){
 
         return sqrt(distanceSquared(sec));
     }
 
+    /** check if the object is Point
+     *
+     * @param obj an Object
+     * @return true if the object is Point
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

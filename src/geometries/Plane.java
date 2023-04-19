@@ -16,7 +16,7 @@ public class Plane implements Geometry {
      * (perpendicular) to the body at this point.
      */
     public Vector getNormal() {
-        return null;
+        return this.normal;
     }
 
     /**
@@ -25,7 +25,7 @@ public class Plane implements Geometry {
      * @param p1
      * @return
      */
-    @Override
+   @Override
     public Vector getNormal(Point p1) {
         return null;
     }

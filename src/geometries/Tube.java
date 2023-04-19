@@ -32,4 +32,8 @@ public class Tube extends RadialGeometry{
         super(r2);
         axiRay = r1;
     }
+
+    public Ray getAxisRay() {
+        return axiRay;
+    }
 }

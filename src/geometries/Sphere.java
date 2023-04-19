@@ -13,14 +13,13 @@ public class Sphere extends RadialGeometry {
     /**
      * returns the normal vector
      * (perpendicular) to the body at this point.
-     * @param p1
+     * @param p
      * @return
      */
     @Override
-    public Vector getNormal(Point p1) {
-        return super.getNormal(p1);
+    public Vector getNormal(Point p) {
+        return p.subtract(center).normalize();
     }
-
     /**
      * Constructor
      * @param p1

@@ -1,12 +1,4 @@
-package geometries;
-
-import org.junit.jupiter.api.Test;
-
-/**
- * Testing Polygons
- * @author Eliaou and Etamar
- */
-
+package unittests.geometries;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -75,7 +67,7 @@ import primitives.Vector;
 
     /** Test method for {@link geometries.Polygon#getNormal(primitives.Point)}. */
     @Test
-        public void testGetNormal() {
+    public void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
         // TC01: There is a simple single test here - using a quad
         Point[] pts =

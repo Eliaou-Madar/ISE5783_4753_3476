@@ -9,7 +9,7 @@ import primitives.Vector;
  * protected and a constructor that accepts a value for the radius as a parameter and initializes the field
  * * @author Eliaou and Etamar
  */
-public abstract class RadialGeometry implements Geometry {
+public abstract class RadialGeometry implements Geometry {//implemente une interface
 
     protected double radius;
 
@@ -27,8 +27,6 @@ public abstract class RadialGeometry implements Geometry {
      * @param p1
      * @return
      */
-    @Override
-    public Vector getNormal(Point p1) {
-        return null;
-    }
+  //  @Override
+  //  public Vector getNormal(Point p1);
 }

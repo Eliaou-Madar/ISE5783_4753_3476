@@ -1,54 +1,71 @@
 package geometries;
+
 import primitives.Point;
 import primitives.Vector;
 
 /**
- * class Plane
+ * this class represent a plane defined by a point in space and a vertical vector
  */
 public class Plane implements Geometry {
+    final private Point q0;
+    final private Vector normal;
 
-
-    public Point q0;
-    public Vector normal;
 
     /**
-     * returns the normal vector
-     * (perpendicular) to the body at this point.
+     * calculating the normal of plane
+     * @param p point
+     * @return vector of the normal
+     */
+    public Vector getNormal(Point p) {
+        return this.normal;
+    }
+
+    /**
+     * constructor
+     * @param point1 point 1
+     * @param point2 point 2
+     * @param point3 point 3
+     */
+    public Plane(Point point1, Point point2, Point point3) {
+        q0= point1;
+        Vector v1 = point2.subtract(point1);
+        Vector v2 = point3.subtract(point1);
+        normal= v1.crossProduct(v2).normalize();
+    }
+
+    /**
+     * constructor
+     * @param point point
+     * @param vector vector of normal
+     */
+    public Plane(Point point, Vector vector) {
+        normal = vector.normalize();
+        q0 = point;
+    }
+
+    /**
+     * getting q0
+     * @return this point
+     */
+    public Point getQ0() { return this.q0; }
+
+    /**
+     * getting normal
+     * @return normal of plane
      */
     public Vector getNormal() {
         return this.normal;
     }
 
     /**
-     * returns the normal vector
-     * (perpendicular) to the body at this point.
-     * @param p1
-     * @return
+     * to string
+     * @return values of plane
      */
-   @Override
-    public Vector getNormal(Point p1) {
-        return null;
-    }
-
-    /**
-     * Constructor
-     * @param p1
-     * @param p2
-     * @param p3
-     */
-    public Plane(Point p1, Point p2,Point p3){
-     normal= null;
-     q0 = p1;
-    }
-
-    /**
-     * Constructor
-     * @param p1
-     * @param v1
-     */
-
-    public Plane(Point p1, Vector v1){
-      q0 =p1;
-      normal = v1;
+    @Override
+    public String toString() {
+        return "Plane{" +
+                "q0=" + q0 +
+                ", normal=" + normal +
+                '}';
     }
 }

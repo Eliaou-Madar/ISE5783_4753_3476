@@ -1,5 +1,5 @@
 package geometries;
-
+import java.util.List;
 import primitives.Point;
 import primitives.Vector;
 
@@ -29,4 +29,6 @@ public abstract class RadialGeometry implements Geometry {//implemente une inter
      */
   //  @Override
   //  public Vector getNormal(Point p1);
+
+
 }

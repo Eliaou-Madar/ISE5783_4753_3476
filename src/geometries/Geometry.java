@@ -2,12 +2,13 @@ package geometries;
 
 import primitives.Vector;
 import primitives.Point;
+import primitives.Ray;
 
 /**
  *
  * interface Geometry
  */
-public interface Geometry {
+public interface Geometry extends Intersectable {
 
     /**
      * returns the normal vector

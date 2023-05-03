@@ -45,6 +45,11 @@ public class Point {
         return new Point(temp);
     }
 
+    public double getX(){
+
+        return xyz.d1;
+    }
+
     /** make the distance between tow Point
      *
      * @param sec a Point

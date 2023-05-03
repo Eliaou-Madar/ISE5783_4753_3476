@@ -6,13 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static primitives.Util.isZero;
-
+import java.util.List;
 import org.junit.jupiter.api.Test;
-
+import static org.junit.jupiter.api.Assertions.*;
 import geometries.Polygon;
 import primitives.Point;
 import primitives.Vector;
-
+import primitives.Ray;
 /** Testing Polygons
  * @author Dan */
  class PolygonTest {

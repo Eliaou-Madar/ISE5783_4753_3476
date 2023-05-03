@@ -23,6 +23,14 @@ public class Ray {
       p0 = p;
       dir = v;
     }
+    /**
+     * The function returns the calculation of the pont on the ray
+     * @param t scalar
+     * @return p0 + v*t
+     */
+    public Point getPoint(double t){
+        return p0.add(dir.scale(t));
+    }
 
     /** check if the object is Ray
      *

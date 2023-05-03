@@ -1,8 +1,10 @@
 package geometries;
-
+import static primitives.Util.isZero;
 import primitives.Point;
 import primitives.Vector;
-
+import java.util.List;
+import primitives.Ray;
+import static primitives.Util.alignZero;
 /**
  * this class represent a plane defined by a point in space and a vertical vector
  */
@@ -67,5 +69,31 @@ public class Plane implements Geometry {
                 "q0=" + q0 +
                 ", normal=" + normal +
                 '}';
+    }
+
+    /**
+     * find all intersection points {@link Point}
+     * that intersect with a specific ray{@link Ray}
+     * @param ray ray pointing towards the plane
+     * @return immutable list of intersection points {@link Point}
+     */
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        Point p0 = ray.getP0();
+        Vector v = ray.getDir();
+        Vector n = normal;
+
+        double nv = n.dotProduct(v);
+        //ray parallel to plane or ray begins in the same point which appears as the plane's reference point
+        if (isZero(nv) || q0.equals(p0))
+            return null;
+        double nQMinusP0 = n.dotProduct(q0.subtract(p0));
+        double t = alignZero(nQMinusP0 / nv);
+        if (t > 0){
+            Point p = ray.getPoint(t);
+            return List.of(p);
+        }
+        //t<=0
+        return null;
     }
 }

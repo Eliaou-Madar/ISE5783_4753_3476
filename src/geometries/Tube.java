@@ -3,6 +3,7 @@ import primitives.Ray;
 import primitives.Vector;
 import primitives.Point;
 import static primitives.Util.isZero;
+import java.util.List;
 
 /**
  *class Tube
@@ -21,6 +22,7 @@ public class Tube extends RadialGeometry{//heritage
      */
     @Override
     public Vector getNormal(Point p) {
+
         double t= axiRay.getDir().dotProduct(p.subtract(axiRay.getP0()));
         if (isZero(t))
             return p.subtract(axiRay.getP0()).normalize();
@@ -43,5 +45,10 @@ public class Tube extends RadialGeometry{//heritage
 
     public Ray getAxisRay() {
         return axiRay;
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        return null;
     }
 }

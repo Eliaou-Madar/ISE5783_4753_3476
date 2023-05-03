@@ -2,6 +2,7 @@ package geometries;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
+import java.util.List;
 
 /**
  * class Cylinder
@@ -33,5 +34,10 @@ public class Cylinder extends Tube{
         super(r1,r);
         height = h;
 
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        return null;
     }
 }

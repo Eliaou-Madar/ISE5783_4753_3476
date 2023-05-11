@@ -83,10 +83,10 @@ public class Plane implements Geometry {
         Vector v = ray.getDir();
         Vector n = normal;
 
-        double nv = n.dotProduct(v);
+        double nv = n.dotProduct(v); //if the dotProduct betwen too vector is 0 as the too vector 90
         //ray parallel to plane or ray begins in the same point which appears as the plane's reference point
         if (isZero(nv) || q0.equals(p0))
-            return null;
+            return null;//because they are not intersection
         double nQMinusP0 = n.dotProduct(q0.subtract(p0));
         double t = alignZero(nQMinusP0 / nv);
         if (t > 0){

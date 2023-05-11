@@ -6,7 +6,7 @@ import static java.lang.Math.sqrt;
  * creating a vector class for vector creation
  * * @author Eliaou and Etamar
  */
-public class Vector extends Point{
+public class Vector extends Point{//heritage
 
 
     Vector(Double3 xyz) {
@@ -62,7 +62,7 @@ public class Vector extends Point{
      * @return crossProduct of Vector
      */
 
-    public Vector crossProduct(Vector sec){
+    public Vector crossProduct(Vector sec){ // ca retourne une vecteure perpendiculaire au deux autre
 
         return new Vector((xyz.d2* sec.xyz.d3)-(xyz.d3* sec.xyz.d2),(xyz.d3* sec.xyz.d1)-(xyz.d1* sec.xyz.d3),(xyz.d1* sec.xyz.d2)-(xyz.d2* sec.xyz.d1));
     }

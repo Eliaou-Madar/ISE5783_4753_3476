@@ -53,7 +53,8 @@ public class Double3 {
    }
 
    @Override
-   public int hashCode() { return (int) Math.round(d1 + d2 + d3); }
+   public int hashCode() { return (int) Math.round(d1 + d2 + d3); } /*Renvoie la longueur la plus proche de l'argument, avec des liens arrondis à l'infini positif.
+   Cas spéciaux:*/
 
    @Override
    public String toString() { return "(" + d1 + "," + d2 + "," + d3 + ")"; }

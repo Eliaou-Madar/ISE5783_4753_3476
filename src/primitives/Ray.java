@@ -24,11 +24,11 @@ public class Ray {
       dir = v;
     }
     /**
-     * The function returns the calculation of the pont on the ray
+     * The function returns the calculation of the point on the ray
      * @param t scalar
      * @return p0 + v*t
      */
-    public Point getPoint(double t){
+    public Point getPoint(double t){//on part du point et on met la direction puit on obtien un nouveau point
         return p0.add(dir.scale(t));
     }
 

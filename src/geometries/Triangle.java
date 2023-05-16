@@ -6,7 +6,7 @@ import static primitives.Util.alignZero;
 import java.util.List;
 
 /** class Triangle
- * * @author Eliaou and Etamar
+ * @author Eliaou and Etamar
  */
 public class Triangle extends Polygon{
 

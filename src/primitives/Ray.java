@@ -1,9 +1,9 @@
 package primitives;
-
+import static primitives.Util.isZero;
 /**
  * All the points on the straight line that are on one side of the given point on the straight line called the beginning/the beginning/the beginning
  * the fund
- * * @author Eliaou and Etamar
+ * @author Eliaou and Ethamar
  */
 
 public class Ray {
@@ -21,7 +21,7 @@ public class Ray {
 
     public Ray(Point p,Vector v) {
       p0 = p;
-      dir = v;
+      dir = v.normalize();
     }
     /**
      * The function returns the calculation of the point on the ray

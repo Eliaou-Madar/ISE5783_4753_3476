@@ -43,7 +43,7 @@ class GeometriesTest {
                 "The findIntersections did`nt work currently when the ray intersect just one shape");
 
         // TC14: Test that findIntersections work currently when the ray intersect all shapes
-        assertEquals(2,ge.findIntersections(new Ray(new Point(1.79961,4.57061,-0.28315), new Vector(-1.12,-1.84,0.28))).size(),
+        assertEquals(4,ge.findIntersections(new Ray(new Point(1.79961,4.57061,-0.28315), new Vector(-1.12,-1.84,0.28))).size(),
                 "The findIntersections did`nt work currently when the ray intersect all shapes");
     }
 }

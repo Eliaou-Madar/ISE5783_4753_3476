@@ -4,13 +4,13 @@ import primitives.Vector;
 import java.util.List;
 import primitives.Ray;
 import static primitives.Util.alignZero;
+import static java.lang.Math.sqrt;
 /**plane (point in space and vertical vector)
- * * @author Eliaou and Etamar
+ * @author Eliaou and Etamar
  */
 public class Sphere extends RadialGeometry {
 
     public Point center;
-    public double radius;
 
     /**
      * returns the normal vector
@@ -30,7 +30,7 @@ public class Sphere extends RadialGeometry {
     public Sphere(Point p1,double r){
         super(r);
         center = p1;
-        radius = r;
+
 
     }
 

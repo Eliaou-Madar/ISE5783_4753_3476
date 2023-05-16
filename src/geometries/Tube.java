@@ -6,8 +6,8 @@ import static primitives.Util.isZero;
 import java.util.List;
 
 /**
- *class Tube
- * * @author Eliaou and Etamar
+ * class Tube
+ * @author Eliaou and Etamar
  */
 
 public class Tube extends RadialGeometry{//heritage

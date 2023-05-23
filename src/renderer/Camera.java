@@ -1,5 +1,10 @@
 package renderer;
 import primitives.*;
+import primitives.Color;
+import primitives.Point;
+
+import java.awt.*;
+import java.util.MissingResourceException;
 
 /**
  * Camera class represents the camera through which we see the scene.
@@ -28,7 +33,7 @@ public class Camera {
      */
     private Vector vRight;
 
-// The attributes of the view plane:
+    // The attributes of the view plane:
     /**
      * The width of the view plane.
      */
@@ -43,6 +48,10 @@ public class Camera {
      * The distance between the p0 and the view plane (in the direction of vTo).
      */
     private double distance;
+
+    private ImageWriter imageWriter;
+
+    private RayTracerBase rayTracer;
 
     /**
      * Constructs an instance of Camera with point and to and up vectors.
@@ -82,6 +91,24 @@ public class Camera {
     }
 
     /**
+     * @param imageWriter The imageWriter to set.
+     * @return The current instance (Builder pattern).
+     */
+    public Camera setImageWriter(ImageWriter imageWriter) {
+        this.imageWriter = imageWriter;
+        return this;
+    }
+
+    /**
+     * @param rayTracer The rayTracer to set.
+     * @return The current instance (Builder pattern).
+     */
+    public Camera setRayTracer(RayTracerBase rayTracer) {
+        this.rayTracer = rayTracer;
+        return this;
+    }
+
+    /**
      * @param width  The number to set as the view plane's width.
      * @param height The number to set as the view plane's height.
      * @return The current instance (Builder pattern).
@@ -111,7 +138,6 @@ public class Camera {
      * @return The ray from the camera to the pixel
      */
     public Ray constructRayThroughPixel(int nX, int nY, int j, int i) {
-
         Point imgCenter = p0.add(vTo.scale(distance));
         double rY = height / nY, rX = width / nX;
         double iY = -(i - (nY - 1d) / 2) * rY, jX = (j - (nX - 1d) / 2) * rX;
@@ -122,4 +148,67 @@ public class Camera {
         return new Ray(p0, ijV);
     }
 
+
+    private final String RESOURCE = "Renderer resource not set";
+    private final String CAMERA_CLASS = "Camera";
+    private final String IMAGE_WRITER = "Image writer";
+    private final String CAMERA = "Camera";
+    private final String RAY_TRACER = "Ray tracer";
+
+    /**
+     * the method check if all the fields are set
+     */
+    public void renderImage() {
+        try {
+            if (imageWriter == null)
+                throw new MissingResourceException(RESOURCE, CAMERA_CLASS, IMAGE_WRITER);
+            if (p0 == null || vTo == null || vUp == null || vRight == null || width == 0 || height == 0 || distance == 0)
+                throw new MissingResourceException(RESOURCE, CAMERA_CLASS, CAMERA);
+            if (rayTracer == null)
+                throw new MissingResourceException(RESOURCE, CAMERA_CLASS, RAY_TRACER);
+        }
+        catch (MissingResourceException e) {
+            throw new UnsupportedOperationException(e.getMessage());
+        }
+
+        final int nX = imageWriter.getNx();
+        final int nY = imageWriter.getNy();
+        for (int i = 0; i < nY; ++i)
+            for (int j = 0; j < nX; ++j)
+                this.imageWriter.writePixel(j, i, castRay(nX, nY, j, i));
+    }
+
+    private Color castRay(int nX, int nY, int j, int i) {
+        return this.rayTracer.traceRay(this.constructRayThroughPixel(nX, nY, j, i));
+    }
+
+    /**
+     * Create a grid [over the picture] in the pixel color map. given the grid's
+     * step and color.
+     *
+     * @param interval grid's interval
+     * @param color grid's color
+     */
+    public void printGrid(int interval, Color color) {
+        if (imageWriter == null)
+            throw new MissingResourceException(RESOURCE, CAMERA_CLASS, IMAGE_WRITER);
+
+        for (int i = 0; i < imageWriter.getNy(); i++) {
+            for (int j = 0; j < imageWriter.getNx(); j++) {
+                if (i % interval == 0 || j % interval == 0) {
+                    imageWriter.writePixel(j, i, color);
+                }
+            }
+        }
+    }
+
+    /**
+     * Produce a rendered image file
+     */
+    public void writeToImage() {
+        if (imageWriter == null)
+            throw new MissingResourceException(RESOURCE, CAMERA, IMAGE_WRITER);
+
+        imageWriter.writeToImage();
+    }
 }

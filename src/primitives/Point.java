@@ -16,6 +16,8 @@ public class Point {
         this.xyz = xyz;
     }
 
+    public static final Point ZERO = new Point(0, 0, 0);
+
     public Point(double x,double y,double z) {
         xyz = new Double3(x,y,z);
     }

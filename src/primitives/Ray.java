@@ -1,4 +1,5 @@
 package primitives;
+import java.util.List;
 import static primitives.Util.isZero;
 /**
  * All the points on the straight line that are on one side of the given point on the straight line called the beginning/the beginning/the beginning
@@ -43,6 +44,26 @@ public class Ray {
         if (obj instanceof Ray other)
             return this.dir.equals(other.dir) && this.p0.equals(other.p0);
         return false;
+    }
+
+    /**
+     * @param lst The list of all the points.
+     * @return The closest point to p0 in the list.
+     */
+    public Point findClosestPoint(List<Point> lst) {
+        if (lst == null || lst.size() == 0) return null;
+
+        Point closest = lst.get(0);
+        double closestDistance = p0.distanceSquared(closest); // To make the calculations more efficient.
+        double tmpDist;
+        for (Point point : lst) {
+            tmpDist = p0.distanceSquared(point); // To make the calculations more efficient.
+            if (tmpDist < closestDistance) {
+                closest = point;
+                closestDistance = tmpDist;
+            }
+        }
+        return closest;
     }
 
 }

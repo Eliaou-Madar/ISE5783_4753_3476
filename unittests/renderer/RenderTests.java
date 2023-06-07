@@ -1,6 +1,6 @@
-package unittests.renderer;
+package renderer;
 
-import static java.awt.Color.YELLOW;
+import static java.awt.Color.*;
 
 import org.junit.jupiter.api.Test;
 
@@ -46,37 +46,34 @@ public class RenderTests {
     // For stage 6 - please disregard in stage 5
     /** Produce a scene with basic 3D model - including individual lights of the
      * bodies and render it into a png image with a grid */
-    // @Test
-    // public void basicRenderMultiColorTest() {
-    // Scene scene = new Scene("Test scene")//
-    // .setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.2))); //
-    //
-    // scene.geometries.add( //
-    // new Sphere(new Point(0, 0, -100), 50),
-    // // up left
-    // new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new
-    // Point(-100, 100, -100))
-    // .setEmission(new Color(GREEN)),
-    // // down left
-    // new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100), new
-    // Point(-100, -100, -100))
-    // .setEmission(new Color(RED)),
-    // // down right
-    // new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new
-    // Point(100, -100, -100))
-    // .setEmission(new Color(BLUE)));
-    //
-    // Camera camera = new Camera(Point.ZERO, new Vector(0, 0, -1), new Vector(0, 1,
-    // 0)) //
-    // .setVPDistance(100) //
-    // .setVPSize(500, 500) //
-    // .setImageWriter(new ImageWriter("color render test", 1000, 1000))
-    // .setRayTracer(new RayTracerBasic(scene));
-    //
-    // camera.renderImage();
-    // camera.printGrid(100, new Color(WHITE));
-    // camera.writeToImage();
-    // }
+    @Test
+    public void basicRenderMultiColorTest() {
+        Scene scene = new Scene("Test scene")
+                .setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.2)));//on applique 0.2 % de blanc sur tout les objet
+                 //
+
+        scene.geometries.add( // center
+                new Sphere(new Point(0, 0, -100), 50),// Z vers nous , X a droit , Y en haut
+                // up left
+                new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100))
+                        .setEmission(new Color(GREEN)),
+                // down left
+                new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100))
+                        .setEmission(new Color(RED)),
+                // down right
+                new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100))
+                        .setEmission(new Color(BLUE)));
+
+        Camera camera = new Camera(Point.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+                .setViewPlaneDistance(100) //plus le plan sera loing plus je verais loing
+                .setViewPlaneSize(500, 500) //la taille du plan si on le reduit on va voire plus grand
+                .setImageWriter(new ImageWriter("color render test", 1000, 1000))// le nom est le nombre de pixelle
+                .setRayTracer(new RayTracerBasic(scene));
+
+        camera.renderImage();
+        camera.printGrid(100, new Color(WHITE));
+        camera.writeToImage();
+    }
 
     /** Test for XML based scene - for bonus */
     @Test

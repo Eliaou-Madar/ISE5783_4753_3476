@@ -158,7 +158,12 @@ public class Camera {
     /**
      * the method check if all the fields are set
      */
-    public void renderImage() {
+    /**
+     * the method check if all the fields are set
+     *
+     * @return The current instance (Builder pattern).
+     */
+    public Camera renderImage() {
         try {
             if (imageWriter == null)
                 throw new MissingResourceException(RESOURCE, CAMERA_CLASS, IMAGE_WRITER);
@@ -166,8 +171,7 @@ public class Camera {
                 throw new MissingResourceException(RESOURCE, CAMERA_CLASS, CAMERA);
             if (rayTracer == null)
                 throw new MissingResourceException(RESOURCE, CAMERA_CLASS, RAY_TRACER);
-        }
-        catch (MissingResourceException e) {
+        } catch (MissingResourceException e) {
             throw new UnsupportedOperationException(e.getMessage());
         }
 
@@ -176,6 +180,7 @@ public class Camera {
         for (int i = 0; i < nY; ++i)
             for (int j = 0; j < nX; ++j)
                 this.imageWriter.writePixel(j, i, castRay(nX, nY, j, i));
+        return this;
     }
 
     private Color castRay(int nX, int nY, int j, int i) {

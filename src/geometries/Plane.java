@@ -8,7 +8,7 @@ import static primitives.Util.alignZero;
 /**
  * this class represent a plane defined by a point in space and a vertical vector
  */
-public class Plane implements Geometry {
+public class Plane extends Geometry {
     final private Point q0;
     final private Vector normal;
 
@@ -95,5 +95,26 @@ public class Plane implements Geometry {
         }
         //t<=0
         return null;
+    }
+
+
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        Point p0 = ray.getP0();
+        Vector v = ray.getDir();
+
+        Vector u;
+        try {
+            u = q0.subtract(p0);
+        } catch (IllegalArgumentException ignore) {
+            return null;
+        }
+
+        double nv = normal.dotProduct(v);
+        //ray parallel to plane or ray begins in the same point which appears as the plane's reference point
+        if (isZero(nv)) return null;
+
+        double t = alignZero(normal.dotProduct(u) / nv);
+        return t <= 0 ? null : List.of(new GeoPoint(this, ray.getPoint(t)));
     }
 }

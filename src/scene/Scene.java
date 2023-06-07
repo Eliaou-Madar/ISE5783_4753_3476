@@ -2,9 +2,14 @@ package scene;
 
 import geometries.Geometries;
 import lighting.AmbientLight;
+import lighting.LightSource;
 import primitives.*;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import static java.awt.Color.BLACK;
+
 
 /**
  * Scene class represents a scene with a background, lights and geometries.
@@ -25,14 +30,28 @@ public class Scene {
     /**
      * The ambient color of the scene.
      */
-    public AmbientLight ambientLight = AmbientLight.NONE;
+    public AmbientLight ambientLight = new AmbientLight();
 
     /**
      * A list of all geometries in the scene.
      */
     public Geometries geometries = new Geometries();;
 
+    /**
+     * A list of all kind of light
+     */
+    public List<LightSource> lights = new LinkedList<>();
 
+    /**
+     * set the scene`s light
+     *
+     * @param lights new light
+     * @return the updated scene itself
+     */
+    public Scene setLights(List<LightSource> lights) {
+        this.lights = lights;
+        return this;
+    }
     /**
      * Constructs a new scene with a given name.
      * Sets all colors as black and creates new empty lists for geometries and lights.

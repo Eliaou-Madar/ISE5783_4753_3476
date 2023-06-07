@@ -24,7 +24,7 @@ class ImageWriterTest {
             for (int j = 0; j < 500; j++) {
               //  if ((i % 50 == 0) || (j % 50 == 0)) //to create a 16 * 10 square: 800/16 = 50 . 500/10 = 50
                 if ((i % 50 == 0) || (j % 50 == 0)) //to create a 16 * 10 square: 800/16 = 50 . 500/10 = 50
-                    imageWriter.writePixel(i, j, new Color(0, 0, 0));//gril
+                    imageWriter.writePixel(i, j, new Color(0, 0, 0));//grill
                 else imageWriter.writePixel(i, j, new Color(135, 227, 14));
 
             }

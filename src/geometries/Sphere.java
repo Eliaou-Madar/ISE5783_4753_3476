@@ -77,4 +77,31 @@ public class Sphere extends RadialGeometry {
         }
         return null;
     }
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        Point p0 = ray.getP0();
+        Vector v = ray.getDir();
+
+        Vector u;
+        try {
+            u = center.subtract(p0);
+        } catch (IllegalArgumentException ignore) {
+            return List.of(new GeoPoint(this, ray.getPoint(radius)));
+        }
+
+        double tm = alignZero(v.dotProduct(u));
+        double dSqr = alignZero(u.lengthSquared() - tm * tm);
+        double thSqr = radius * radius - dSqr;
+        // no intersections : the ray direction is above the sphere
+        if (alignZero(thSqr) <= 0) return null;
+
+        double th = alignZero(Math.sqrt(thSqr));
+
+        double t2 = alignZero(tm + th);
+        if (t2 <= 0) return null;
+
+        double t1 = alignZero(tm - th);
+        return t1 <= 0 ? List.of(new GeoPoint(this, ray.getPoint(t2)))
+                : List.of(new GeoPoint(this, ray.getPoint(t1)), new GeoPoint(this, ray.getPoint(t2)));
+    }
 }

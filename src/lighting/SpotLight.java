@@ -34,8 +34,5 @@ public class SpotLight extends PointLight {
         return pointIntensity.scale(Math.max(0, attenuation));
     }
 
-    //bonus
-    public SpotLight setNarrowBeam(int i) {
-        return this;
-    }
+
 }

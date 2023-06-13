@@ -15,6 +15,14 @@ public interface LightSource {
      */
     public Color getIntensity(Point p);
 
+
+    /**
+     * calculate the distance between the point to the light source
+     * @param point the point
+     * @return the distance from point to the light
+     */
+    double getDistance(Point point);
+
     /**
      * get the direction of the light towards the point
      *

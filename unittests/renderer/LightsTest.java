@@ -34,7 +34,7 @@ public class LightsTest {
     private Point trPL = new Point(30, 10, -100); // Triangles test Position of Light
     private Point spPL = new Point(-50, -50, 25); // Sphere test Position of Light
     private Color trCL = new Color(250, 500, 800); // Triangles test Color of Light
-    private Color spCL = new Color(800, 500, 0); // Sphere test Color of Light
+    private Color spCL = new Color(800, 119, 0); // Sphere test Color of Light
     private Vector trDL = new Vector(-2, -2, -2); // Triangles test Direction of Light
     private Material material = new Material().setKd(0.5).setKs(0.5).setShininess(300);
     private Geometry triangle1 = new Triangle(p[0], p[1], p[2]).setMaterial(material);
@@ -133,40 +133,7 @@ public class LightsTest {
                 .writeToImage(); //
     }
 
-    /**
-     * Produce a picture of a sphere lighted by a narrow spot light
-     */
-    @Test
-    public void sphereSpotSharp() {
-        scene1.geometries.add(sphere);
-        scene1.lights
-                .add(new SpotLight(spCL, spPL, new Vector(1, 1, -0.5)).setNarrowBeam(10).setKl(0.001).setKq(0.00004));
 
-        ImageWriter imageWriter = new ImageWriter("lightSphereSpotSharp", 500, 500);
-        camera1.setImageWriter(imageWriter) //
-                .setRayTracer(new RayTracerBasic(scene1)) //
-                .renderImage() //
-                .writeToImage(); //
-    }
-
-    /**
-     * Produce a picture of a two triangles lighted by a narrow spot light
-     */
-    @Test
-    public void trianglesSpotSharp() {
-        scene2.geometries.add(triangle1, triangle2);
-        scene2.lights.add(new SpotLight(trCL, trPL, trDL).setNarrowBeam(10).setKl(0.001).setKq(0.00004));
-
-        ImageWriter imageWriter = new ImageWriter("lightTrianglesSpotSharp", 500, 500);
-        camera2.setImageWriter(imageWriter) //
-                .setRayTracer(new RayTracerBasic(scene2)) //
-                .renderImage() //
-                .writeToImage(); //
-    }
-
-    /**
-     * Produce a picture of a sphere lighted by directional light, point light and spot light
-     */
     @Test
     public void sphereAll() {
         Point spPL1 = new Point(60, 20, 20);

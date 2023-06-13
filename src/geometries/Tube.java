@@ -47,8 +47,9 @@ public class Tube extends RadialGeometry{//heritage
         return axiRay;
     }
 
+
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         return null;
     }
 }

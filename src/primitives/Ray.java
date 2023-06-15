@@ -10,6 +10,8 @@ import static primitives.Util.isZero;
  */
 
 public class Ray {
+
+    private static final double DELTA = 0.1;
     public Point getP0() {
         return p0;
     }
@@ -25,6 +27,17 @@ public class Ray {
     public Ray(Point p,Vector v) {
       p0 = p;
       dir = v.normalize();
+    }
+    /**
+     * Constructor that moves the ray by DELTA
+     * @param p0 point
+     * @param direction direction (must be normalized)
+     * @param normal normal
+     */
+    public Ray(Point p0, Vector direction, Vector normal) {
+        Vector delta = normal.scale(normal.dotProduct(direction) > 0 ? DELTA : - DELTA);
+        this.p0 = p0.add(delta);
+        this.dir = direction;
     }
     /**
      * The function returns the calculation of the point on the ray
@@ -67,6 +80,7 @@ public class Ray {
     public GeoPoint findClosestGeoPoint(List<GeoPoint> geoPoints) {
         if (geoPoints == null || geoPoints.isEmpty())
             return null;
+
         GeoPoint result = null;
         Double closest = Double.MAX_VALUE;
         for (GeoPoint p : geoPoints) {
@@ -76,7 +90,7 @@ public class Ray {
                 result = p;
             }
         }
-        return result;
+        return result;//GeoPoint
     }
 
 }

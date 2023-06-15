@@ -11,7 +11,14 @@ import primitives.Vector;
  */
 public class PointLight extends Light implements LightSource {
 
+    /**
+     * Position of the light
+     */
     private Point position;
+
+    /**
+     * Factors (kc, kl, kq) for attenuation with distance (d)
+     */
     private double kC, kL, kQ;
 
     /**
@@ -61,6 +68,11 @@ public class PointLight extends Light implements LightSource {
         return this;
     }
 
+    /**
+     * returns the color of the light at the point according to its distance
+     * @param p the point
+     * @return
+     */
     @Override
     public Color getIntensity(Point p) {
         // IL / (kc + kl *distance + kq * distanceSquared)
@@ -72,10 +84,15 @@ public class PointLight extends Light implements LightSource {
         return getIntensity().reduce(factor);
     }
 
+    /**
+     * return the vector from the light source to the point p
+     * @param p the point
+     * @return
+     */
     @Override
     public Vector getL(Point p) {
         if (!p.equals(position))
-            return p.subtract(position).normalize();
+            return p.subtract(position).normalize();//retourne le vecteure de la source lumineuse au point p
         return null;
     }
 

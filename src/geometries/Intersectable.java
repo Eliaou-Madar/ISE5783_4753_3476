@@ -37,7 +37,7 @@ public abstract class Intersectable{
      * @return immutable list of intersection geo points {@link GeoPoint}
      */
     public final List<GeoPoint> findGeoIntersections(Ray ray) {
-        return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
+        return findGeoIntersections(ray, Double.POSITIVE_INFINITY);//le rayon et la distance que peut parcourire le rayon (la taille du rayon)
     }
 
     /**

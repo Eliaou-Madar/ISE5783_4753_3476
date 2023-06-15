@@ -176,15 +176,15 @@ public class Camera {
         }
 
         final int nX = imageWriter.getNx();
-        final int nY = imageWriter.getNy();
+        final int nY = imageWriter.getNy();//de haut en bas de gauche a droite
         for (int i = 0; i < nY; ++i)
             for (int j = 0; j < nX; ++j)
-                this.imageWriter.writePixel(j, i, castRay(nX, nY, j, i));
+                this.imageWriter.writePixel(j, i, castRay(nX, nY, j, i));//place la couleure dans le pixel associer
         return this;
     }
 
     private Color castRay(int nX, int nY, int j, int i) {
-        return this.rayTracer.traceRay(this.constructRayThroughPixel(nX, nY, j, i));
+        return this.rayTracer.traceRay(this.constructRayThroughPixel(nX, nY, j, i));//on donne a la fonction traceRay chaque rayon 1 par 1 qui part de la camera part le view plane.tous ca pour calculer la couleur
     }
 
     /**

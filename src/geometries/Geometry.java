@@ -9,8 +9,9 @@ import primitives.*;
 public abstract class Geometry extends Intersectable {
 
     private Material material = new Material();
+
     /**
-     * the color of the geometry
+     * the color of the geometry // the sum of ambient light + color
      */
     protected Color emission = Color.BLACK;
 

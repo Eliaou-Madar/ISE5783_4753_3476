@@ -85,19 +85,19 @@ public class ShadowTests {
 
         scene.geometries.add( new Triangle(new Point(-150, -150, -115), new Point(150, -150, -135),
                         new Point(75, 75, -150)) //
-                        .setMaterial(new Material().setKs(0.8).setShininess(60)), //
+                       .setMaterial(new Material().setKs(0.8).setShininess(60)), //
                 new Triangle(new Point(-150, -150, -115), new Point(-70, 70, -140), new Point(75, 75, -150)) //
-                        .setMaterial(new Material().setKs(0.8).setShininess(60)), //
+                       .setMaterial(new Material().setKs(0.8).setShininess(60)), //
 
-                //new Polygon(new Point(200,200,-115) ,new Point(-200,200,-115),new Point(-200,-200,-115), new Point(200,-200,-115)) .setMaterial(new Material().setKs(0.8).setShininess(60)),
+            //   new Polygon(new Point(75,75,-140) ,new Point(-75,75,-140),new Point(-150,-150,-140), new Point(150,-150,-140)).setMaterial(new Material().setKs(0.8).setShininess(60)),
 
                 new Sphere(new Point(0, 0, -11), 30d) //
                         .setEmission(new Color(BLUE)) //
                         .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30)) //
         );
         scene.lights.add( //
-                new SpotLight(new Color(700, 400, 400), new Point(40, 40, 115), new Vector(-1, -1, -4)) //
-                        .setKl(4E-4).setKq(2E-5));
+                new SpotLight(new Color(175, 100, 100).scale(4), new Point(40, 40, 115), new Vector(-1, -1, -4)) //700.400.400.4E-4.2E-5
+                        .setKl(0.0004).setKq(0.00002));//setKl et setKq augmente la force de la lumier lorsquile son proche de 0
 
         camera.setImageWriter(new ImageWriter("shadowTrianglesSphere", 600, 600)) //
                 .renderImage() //

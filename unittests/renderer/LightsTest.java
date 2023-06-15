@@ -34,7 +34,7 @@ public class LightsTest {
     private Point trPL = new Point(30, 10, -100); // Triangles test Position of Light
     private Point spPL = new Point(-50, -50, 25); // Sphere test Position of Light
     private Color trCL = new Color(250, 500, 800); // Triangles test Color of Light
-    private Color spCL = new Color(800, 119, 0); // Sphere test Color of Light
+    private Color spCL = new Color(255*3, 106*3, 94*3); // Sphere test Color of Light
     private Vector trDL = new Vector(-2, -2, -2); // Triangles test Direction of Light
     private Material material = new Material().setKd(0.5).setKs(0.5).setShininess(300);
     private Geometry triangle1 = new Triangle(p[0], p[1], p[2]).setMaterial(material);

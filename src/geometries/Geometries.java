@@ -45,7 +45,7 @@ public class Geometries extends Intersectable{
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         List<GeoPoint> result = null;
         for (Intersectable item : geometries) {
-            List<GeoPoint> itemResult = item.findGeoIntersectionsHelper(ray, maxDistance);
+            List<GeoPoint> itemResult = item.findGeoIntersectionsHelper(ray, maxDistance);//pour chaque figure geometric je vais regarder si le rayon a une intersection avec lui
             if (itemResult != null) {
                 if (result == null)
                     result = new LinkedList<>(itemResult);

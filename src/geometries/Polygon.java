@@ -75,7 +75,7 @@ public class Polygon extends Geometry {
          // Test the consequent edges have
          edge1 = edge2;
          edge2 = vertices[i].subtract(vertices[i - 1]);
-         if (positive != (edge1.crossProduct(edge2).dotProduct(n) > 0))
+        if (positive != (edge1.crossProduct(edge2).dotProduct(n) > 0))
             throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
       }
    }
@@ -90,6 +90,42 @@ public class Polygon extends Geometry {
 
    @Override
    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
-      return null;
+      List<GeoPoint> intersections = this.plane.findGeoIntersections(ray, maxDistance);
+
+      // if there is no Intersections at all in the plane
+      if (intersections == null)
+         return null;
+
+      int numOfVertices = vertices.size();
+      Point p0 = ray.getP0();
+      Vector dir = ray.getDir();
+
+      Vector v1 = vertices.get(numOfVertices - 1).subtract(p0);
+      Vector v2 = vertices.get(0).subtract(p0);
+
+      Vector n = v1.crossProduct(v2).normalize();
+      double vn = dir.dotProduct(n);
+      boolean positive = vn > 0;
+
+      if (isZero(vn))
+         return null;
+
+      for (int i = 1; i < numOfVertices; ++i) {
+         v1 = v2;
+         v2 = vertices.get(i).subtract(p0);
+         n = v1.crossProduct(v2).normalize();
+         vn = dir.dotProduct(n);
+
+         //no intersection
+         if (isZero(vn))
+            return null;
+
+         //not the same sign
+         if (vn > 0 != positive)
+            return null;
+      }
+
+      return List.of(new GeoPoint(this, intersections.get(0).point));
+
    }
 }

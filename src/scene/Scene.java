@@ -82,6 +82,15 @@ public class Scene {
     }
 
     /**
+     * get the scene's ambientLight
+     * @return ambientLight
+     */
+    public AmbientLight getAmbientLight() {
+
+        return ambientLight;
+    }
+
+    /**
      * Set the scene's geometry list.
      * @param geometries New list of geometries
      * @return this (builder pattern)

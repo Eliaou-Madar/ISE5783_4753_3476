@@ -12,6 +12,7 @@ import static primitives.Util.alignZero;
 
 /**
  * A basic implementation of a ray tracer class.
+ * @author Eliaou and Etamar
  */
 
 public class RayTracerBasic extends RayTracerBase {

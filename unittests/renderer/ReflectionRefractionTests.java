@@ -107,41 +107,34 @@ public class ReflectionRefractionTests {
                 .writeToImage();
     }
 
-    /** Produce a picture of a two triangles lighted by a spot light with a
-     * partially
-     * transparent Sphere producing partial shadow */
+    /** 4 more and more transparent sphere with their shadow and reflection
+     * @author Eliaou and Etamar
+     */
     @Test
     public void ReflectionRefractionTransparentAll() {
-        Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+        Camera camera = new Camera(new Point(800, -800, -120), new Vector(-1.05, 1, 0), new Vector(0, 0, 1)) //
                 .setViewPlaneSize(200, 200).setViewPlaneDistance(1000);
 
         scene.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.15)));
 
-        scene.geometries.add( //
-               // new Triangle(new Point(-150, -150, -115), new Point(150, -150, -135),
-                       // new Point(75, 75, -150)).setEmission(new Color(GRAY)) //
-
-                      //  .setMaterial(new Material().setkR(1).setKd(0.5).setKs(0.5).setShininess(60)), //
-               // new Triangle(new Point(-150, -150, -115), new Point(-70, 70, -140), new Point(75, 75, -150)).setEmission(new Color(GRAY)) //
-                      //  .setMaterial(new Material().setkR(1).setKd(0.5).setKs(0.5).setShininess(60)), //
-                new Sphere(new Point(0, -60, -120), 20d).setEmission(new Color(YELLOW)) //
+        scene.geometries.add(
+                new Sphere(new Point(0, -90, -120), 20d).setEmission(new Color(YELLOW)) //
                         .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(80).setkT(0)),
-                new Sphere(new Point(0, -20, -130), 20d).setEmission(new Color(RED)) //
-                        .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(30).setkT(0.2)),
-                new Sphere(new Point(0, 20, -140), 20d).setEmission(new Color(GREEN)) //
-                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setkT(0.4)),
-                new Sphere(new Point(0, 60, -150), 20d).setEmission(new Color(RED)) //
-                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setkT(0.7)),
+                new Sphere(new Point(0, -30, -130), 20d).setEmission(new Color(RED)) //
+                        .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(30).setkT(0.3)),
+                new Sphere(new Point(0, 30, -140), 20d).setEmission(new Color(GREEN)) //
+                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setkT(0.5)),
+                new Sphere(new Point(0, 90, -150), 20d).setEmission(new Color(RED)) //
+                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setkT(0.8)),
 
-        new Polygon( new Point(75, -150, -150), new Point(75, 95, -150), new Point(0, 95, -150),new Point(0, -150, -150)).setEmission(new Color(GRAY).scale(0.5)).setMaterial(new Material().setkR(0).setKd(0.5).setKs(0.5).setShininess(0)),
-                new Polygon( new Point(0, -150, -200), new Point(0, 100, -200), new Point(-70, 100, -70) ,new Point(-70, -150, -70) ).setEmission(new Color(GRAY)).setMaterial(new Material().setkR(1).setKd(0.5).setKs(0.5).setShininess(100)));
-        //scene.lights.add(new SpotLight(new Color(BLUE).scale(3), new Point(-80, 0, 40), new Vector(0, 0, -1)) //
-         //     .setKl(4E-5).setKq(2E-7));
+        new Polygon( new Point(75, -150, -200), new Point(75, 95, -178), new Point(0, 95, -178),new Point(0, -150, -200)).setEmission(new Color(GRAY).scale(0.5)).setMaterial(new Material().setkR(0).setKd(0.5).setKs(0.5).setShininess(0)),
+        new Polygon( new Point(0, -150, -200), new Point(-10.76923076923,100,-180), new Point(-70, 100, -70) ,new Point(-70, -150, -70) ).setEmission(new Color(GRAY)).setMaterial(new Material().setkR(1).setKd(0.5).setKs(0.5).setShininess(100)));
 
-        scene.lights.add(new PointLight(new Color(BLUE).scale(2), new Point(-80, 0, 40)) //
+
+        scene.lights.add(new PointLight(new Color(100,250,255).scale(2), new Point(-90, -50, 40)) //
                 .setKl(4E-5).setKq(2E-7));
 
-        ImageWriter imageWriter = new ImageWriter("ReflectionRefractionTransparentAll", 600, 600);
+        ImageWriter imageWriter = new ImageWriter("ReflectionRefractionTransparentAll", 1500, 1500);
         camera.setImageWriter(imageWriter) //
                 .setRayTracer(new RayTracerBasic(scene)) //
                 .renderImage() //

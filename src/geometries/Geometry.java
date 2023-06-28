@@ -5,6 +5,7 @@ import primitives.*;
 /**
  *
  * interface Geometry
+ *  @author Eliaou and Etamar
  */
 public abstract class Geometry extends Intersectable {
 

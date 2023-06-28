@@ -1,34 +1,35 @@
 package geometries;
+
 import primitives.Point;
-import primitives.Vector;
 import primitives.Ray;
-import static primitives.Util.alignZero;
+import primitives.Vector;
+
 import java.util.List;
 
-/** class Triangle
+import static primitives.Util.alignZero;
+
+/**
+ * this class represents a Triangle
  * @author Eliaou and Etamar
  */
-public class Triangle extends Polygon{
-
+public class Triangle extends Polygon {
     /**
-     * Constructor
-     * @param p1
-     * @param p2
-     * @param p3
+     * constructor for triangle by 3 points
+     *
+     * @param p1 coordinate value for X axis
+     * @param p2 coordinate value for Y axis
+     * @param p3 coordinate value for Z axis
      */
-    public Triangle(Point p1,Point p2,Point p3){
-        super(p1,p2,p3);
+    public Triangle(Point p1, Point p2, Point p3) {
+        super(p1, p2, p3);
     }
 
     @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
-        List<GeoPoint> result = plane.findGeoIntersectionsHelper(ray, maxDistance);//chaque polygone a un plane
+        List<GeoPoint> result = plane.findGeoIntersectionsHelper(ray, maxDistance);
 
         //Check if the ray intersect the plane.
         if (result == null) return null;
-
-        for (GeoPoint g : result)
-            g.geometry = this;
 
         Point p0 = ray.getP0();
         Vector v = ray.getDir();
@@ -47,6 +48,7 @@ public class Triangle extends Polygon{
         double vn3 = alignZero(v.dotProduct(n3));
         if (vn1 * vn3 <= 0) return null;
 
+        result.get(0).geometry = this;
         return result;
     }
 }

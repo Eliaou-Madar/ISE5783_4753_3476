@@ -6,7 +6,7 @@ import static primitives.Util.isZero;
 /**
  * All the points on the straight line that are on one side of the given point on the straight line called the beginning/the beginning/the beginning
  * the fund
- * @author Eliaou and Ethamar
+ * @author Eliaou and Etamar
  */
 
 public class Ray {

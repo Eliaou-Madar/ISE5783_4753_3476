@@ -2,6 +2,7 @@ package primitives;
 
 /**
  * class foe the material of object represented by its shininess, diffuse and specular
+ *  @author Eliaou and Etamar
  */
 public class Material {
     /**

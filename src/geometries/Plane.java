@@ -7,6 +7,7 @@ import primitives.Ray;
 import static primitives.Util.alignZero;
 /**
  * this class represent a plane defined by a point in space and a vertical vector
+ *  @author Eliaou and Etamar
  */
 public class Plane extends Geometry {
     final private Point q0;
@@ -117,4 +118,6 @@ public class Plane extends Geometry {
         double t = alignZero(normal.dotProduct(u) / nv);
         return t > 0 && alignZero(t - maxDistance) <= 0 ? List.of(new GeoPoint(this, ray.getPoint(t))) : null;
     }
+
+
 }

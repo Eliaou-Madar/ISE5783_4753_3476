@@ -7,17 +7,18 @@ import scene.Scene;
 /**
  * RayTracerBase Class is an abstract class as a template to
  * ray tracers, which are calculating the color of the point.
- * @author Eliaou and Etamar
+ *  @author Eliaou and Etamar
  */
 public abstract class RayTracerBase {
 
     /**
      * The scene to trace.
      */
-    protected Scene scene;
+    protected final Scene scene;
 
     /**
      * Constructs a new instance of ray tracer (the inherit class) with a given scene.
+     *
      * @param scene The given scene.
      */
     RayTracerBase(Scene scene) {
@@ -31,7 +32,8 @@ public abstract class RayTracerBase {
      * Find the color of the intersection point (Ambient light)
      *
      * @param ray The ray to trace.
+     * @param isASS is adaptive super sampling
      * @return The color of the intersection point.
      */
-    public abstract Color traceRay(Ray ray);
+    public abstract Color traceRay(Ray ray, boolean isASS);
 }

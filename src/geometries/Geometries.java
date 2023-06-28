@@ -9,6 +9,7 @@ import java.util.List;
 
 /**
  * Geometries class represents a list of shapes of all kinds
+ *  @author Eliaou and Etamar
  */
 public class Geometries extends Intersectable{
 

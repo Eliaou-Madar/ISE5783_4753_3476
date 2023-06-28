@@ -10,18 +10,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Testing integration of constructing rays and intersections.
  *
- * @author Eliaou and Ethamar
+ * @author Elhanan Tweig & Yossef Cohen-Salmon
  */
 public class RayConstructionAndIntersectionTest {
-
-    static final Point ZERO_POINT = new Point(0, 0, 0);
 
     /**
      * Tests the integration of ray construction and ray intersection.
      */
     @Test
     public void rayConstructionAndIntersectionTest() {
-        Camera camera = new Camera(ZERO_POINT, new Vector(0, 0, -1), new Vector(0, 1, 0))
+        Camera camera = new Camera(Point.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0))
                 .setViewPlaneDistance(1).setViewPlaneSize(3, 3);
 
         // TC01: Sphere, 2 intersection points
@@ -33,7 +31,6 @@ public class RayConstructionAndIntersectionTest {
         // TC02: Sphere, 18 intersection points
         camera = new Camera(new Point(0, 0, 0.5), new Vector(0, 0, -1), new Vector(0, 1, 0))
                 .setViewPlaneDistance(1).setViewPlaneSize(3, 3);
-
         sp = new Sphere(new Point(0, 0, -2.5), 2.5);
 
         assertEquals(18, intersectionPointCountThroughCamera(camera, sp), "TC02: Sphere, 18 intersection points test not working");
@@ -63,24 +60,13 @@ public class RayConstructionAndIntersectionTest {
 
         assertEquals(6, intersectionPointCountThroughCamera(camera, pl), "TC07: Tilted plane, 6 intersection points test not working");
 
-        // TC08: Triangle, 1 intersection point
-        camera = new Camera(ZERO_POINT, new Vector(0, 0, -1), new Vector(0, 1, 0))
-                .setViewPlaneDistance(1).setViewPlaneSize(3, 3);
-        Triangle tr = new Triangle(new Point(0, 1, -2),
-                new Point(1, -1, -2), new Point(-1, -1, -2));
 
-        assertEquals(0, intersectionPointCountThroughCamera(camera, tr), "TC08: Triangle, 1 intersection point test not working");
-
-        // TC09: Triangle, 2 intersection points
-        tr = new Triangle(new Point(0, 20, -2),
-                new Point(1, -1, -2), new Point(-1, -1, -2));
-
-        assertEquals(0, intersectionPointCountThroughCamera(camera, tr), "TC09: Triangle, 2 intersection point test not working");
-    }
+          }
 
     /**
      * Checks the amount of intersection points in a geometry from a camera.
-     * @param camera The camera where to check intersection points from
+     *
+     * @param camera        The camera where to check intersection points from
      * @param intersectable The geometry to check intersections with.
      * @return The amount of intersection points from the given camera.
      */

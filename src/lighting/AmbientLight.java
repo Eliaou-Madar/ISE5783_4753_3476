@@ -6,11 +6,11 @@ import primitives.Point;
 
 /**
  * Ambient light source represents a non-directional, fixed-intensity and fixed-color light source.
- *
  * @author Eliaou and Etamar
  */
 public class AmbientLight extends Light {
 
+    public static AmbientLight NONE = new AmbientLight(Color.BLACK,Double3.ZERO);
     // ***************** Constructors ********************** //
 
     /**
@@ -22,6 +22,10 @@ public class AmbientLight extends Light {
      */
     public AmbientLight(Color iA, Double3 kA) {
         super(iA.scale(kA));
+    }
+
+    public AmbientLight(Color Ia,double Ka){
+        super(Ia.scale(Ka));
     }
 
     /**

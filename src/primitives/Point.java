@@ -1,88 +1,123 @@
 package primitives;
 
-import static java.lang.Math.sqrt;
+import static primitives.Util.*;
+
+import java.lang.*;
 
 /**
- * Class Point is the basic class representing a point of Euclidean geometry in Cartesian
- * 3-Dimensional coordinate system.
+ * this class serve a point with 3 coordinates, contains an object of three numbers of type Double3
+ *
  * @author Eliaou and Etamar
  */
-
 public class Point {
+    protected final Double3 xyz;
+    public static final Point ZERO = new Point(0, 0, 0);
 
-    final Double3 xyz;
+    /**
+     * constructor that gets the 3 coordinated and build point
+     *
+     * @param x first coordinate value
+     * @param y second coordinate value
+     * @param z third coordinate value
+     */
+    public Point(double x, double y, double z) {
+        this(new Double3(x, y, z));
+    }
 
-    Point(Double3 xyz) {
+    /**
+     * constructor that gets Double3 and build point
+     *
+     * @param xyz the xyz value
+     */
+    protected Point(Double3 xyz) {
         this.xyz = xyz;
     }
 
-    public static final Point ZERO = new Point(0, 0, 0);
-
-    public Point(double x,double y,double z) {
-        xyz = new Double3(x,y,z);
-    }
-
-    /** Make the addition between tow Point
+    /**
+     * the function calculates vector plus point
      *
-     * @param sec a Point
-     * @return a Point of the addition between tow Point
+     * @param vector the vector that we want to add
+     * @return new point of the result
      */
-
-    public Vector subtract(Point sec){
-
-        Double3 temp = this.xyz.subtract(sec.xyz);
-
-        return new Vector(temp);
+    public Point add(Vector vector) {
+        return new Point(xyz.add(vector.xyz));
     }
 
-    /** Make the addition between tow Point
+    /**
+     * Getter for x coordinate
      *
-     * @param sec a Point
-     * @return a Point of the addition between tow Point
+     * @return The x coordinate
      */
-    public Point add(Point sec){
-
-        Double3 temp = this.xyz.add(sec.xyz);
-
-        return new Point(temp);
-    }
-
-    public double getX(){
-
+    public double getX() {
         return xyz.d1;
     }
 
-    /** make the distance between tow Point
+    /**
+     * Getter for y coordinate
      *
-     * @param sec a Point
-     * @return distance (double) between tow Point without sqrt
+     * @return The y coordinate
      */
-
-    public double distanceSquared(Point sec){
-
-        return ((sec.xyz.d3 - this.xyz.d3)*(sec.xyz.d3 - this.xyz.d3) + (sec.xyz.d2 - this.xyz.d2)*(sec.xyz.d2 - this.xyz.d2) +(sec.xyz.d1 - this.xyz.d1)*(sec.xyz.d1 - this.xyz.d1));
+    public double getY() {
+        return xyz.d2;
     }
 
-    /** make the distance between tow Point and make the sqrt
+    /**
+     * Getter for z coordinate
      *
-     * @param sec a Point
-     * @return distance (double)  between tow Point
+     * @return The z coordinate
      */
-    public double distance(Point sec){
-
-        return sqrt(distanceSquared(sec));
+    public double getZ() {
+        return xyz.d3;
     }
 
-    /** check if the object is Point
+    /**
+     * the function calculates point minus point
      *
-     * @param obj an Object
-     * @return true if the object is Point
+     * @param point the point that we want to subtract
+     * @return new point of the result
      */
+    public Vector subtract(Point point) {
+        Double3 newXyz = xyz.subtract(point.xyz);
+        return new Vector(newXyz);
+    }
+
+    /**
+     * the function calculates the distance by minus between them and pow 2 every value
+     *
+     * @param p the second point
+     * @return the result of the distance in pow 2
+     */
+    public double distanceSquared(Point p) {
+        double p1 = xyz.d1 - p.xyz.d1;
+        double p2 = xyz.d2 - p.xyz.d2;
+        double p3 = xyz.d3 - p.xyz.d3;
+        return p1 * p1 + p2 * p2 + p3 * p3;
+    }
+
+    /**
+     * the function calculates the distance between 2 points by making root
+     * to the value that return from distance squared
+     *
+     * @param p the second point
+     * @return the distance squared between 2 points
+     */
+    public double distance(Point p) {
+        return Math.sqrt(distanceSquared(p));
+    }
+
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj instanceof Point other)
-            return this.xyz.equals(other.xyz);
-        return false;
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Point other))
+            return false;
+        return this.xyz.equals(other.xyz);
+    }
+
+    @Override
+    public String toString() {
+        return "" + xyz;
     }
 }

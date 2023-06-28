@@ -1,13 +1,16 @@
 package geometries;
 
 import primitives.*;
+
 import java.util.List;
 
 /**
- * Common interface for all graphic objects
- * that intersect with a ray{@link Ray}
+ * Common abstract class for all graphic objects
+ * that intersect with a {@link Ray}
+ *
+ * @author Eliaou and Etamar
  */
-public abstract class Intersectable{
+public abstract class Intersectable {
     /**
      * find all intersection {@link Point}s
      * that intersect with a specific {@link Ray}
@@ -37,7 +40,7 @@ public abstract class Intersectable{
      * @return immutable list of intersection geo points {@link GeoPoint}
      */
     public final List<GeoPoint> findGeoIntersections(Ray ray) {
-        return findGeoIntersections(ray, Double.POSITIVE_INFINITY);//le rayon et la distance que peut parcourire le rayon (la taille du rayon)
+        return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
     }
 
     /**
@@ -66,8 +69,11 @@ public abstract class Intersectable{
         }
 
         @Override
-        public boolean equals(Object obj) {
-            return super.equals(obj);
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            GeoPoint geoPoint = (GeoPoint) o;
+            return geometry.equals(geoPoint.geometry) && point.equals(geoPoint.point);
         }
 
         @Override

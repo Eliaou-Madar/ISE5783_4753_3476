@@ -4,7 +4,6 @@ import primitives.Color;
 
 /**
  * represent the Lights by light intensity as Color
- *
  * @author Eliaou and Etamar
  */
 abstract class Light {

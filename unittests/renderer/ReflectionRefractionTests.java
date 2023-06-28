@@ -6,6 +6,8 @@ package renderer;
 import static java.awt.Color.*;
 
 import geometries.Polygon;
+import geometries.Plane;
+import lighting.DirectionalLight;
 import lighting.PointLight;
 import org.junit.jupiter.api.Test;
 
@@ -107,11 +109,11 @@ public class ReflectionRefractionTests {
                 .writeToImage();
     }
 
-    /** 4 more and more transparent sphere with their shadow and reflection
+    /** 4 more and more transparent sphere with their shadow and reflection when we Use AntiAliasing
      * @author Eliaou and Etamar
      */
     @Test
-    public void ReflectionRefractionTransparentAll() {
+    public void MP1_UseAntiAliasing() {
         Camera camera = new Camera(new Point(800, -800, -120), new Vector(-1.05, 1, 0), new Vector(0, 0, 1)) //
                 .setViewPlaneSize(200, 200).setViewPlaneDistance(1000);
 
@@ -132,12 +134,54 @@ public class ReflectionRefractionTests {
 
 
         scene.lights.add(new PointLight(new Color(100,250,255).scale(2), new Point(-90, -50, 40)) //
-                .setKl(4E-5).setKq(2E-7));
+                .setradius(5).setKl(4E-5).setKq(2E-7));
 
-        ImageWriter imageWriter = new ImageWriter("ReflectionRefractionTransparentAll", 1500, 1500);
+        ImageWriter imageWriter = new ImageWriter("MP1_UseAntiAliasing", 1000, 1000);
         camera.setImageWriter(imageWriter) //
                 .setRayTracer(new RayTracerBasic(scene)) //
-                .renderImage() //
+                .setUseAntiAliasing(true)
+                .setAliasingRays(10)
+                .setASS(true)
+                .setMultithreading(4)
+                .renderImage()
+                .writeToImage();
+    }
+
+    /** 4 more and more transparent sphere with their shadow and reflection when we Dont Use AntiAliasing
+     * @author Eliaou and Etamar
+     */
+    @Test
+    public void MP1_DontUseAntiAliasing() {
+        Camera camera = new Camera(new Point(800, -800, -120), new Vector(-1.05, 1, 0), new Vector(0, 0, 1)) //
+                .setViewPlaneSize(200, 200).setViewPlaneDistance(1000);
+
+        scene.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.15)));
+
+        scene.geometries.add(
+                new Sphere(new Point(0, -90, -120), 20d).setEmission(new Color(YELLOW)) //
+                        .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(80).setkT(0)),
+                new Sphere(new Point(0, -30, -130), 20d).setEmission(new Color(RED)) //
+                        .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(30).setkT(0.3)),
+                new Sphere(new Point(0, 30, -140), 20d).setEmission(new Color(GREEN)) //
+                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setkT(0.5)),
+                new Sphere(new Point(0, 90, -150), 20d).setEmission(new Color(RED)) //
+                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setkT(0.8)),
+
+                new Polygon( new Point(75, -150, -200), new Point(75, 95, -178), new Point(0, 95, -178),new Point(0, -150, -200)).setEmission(new Color(GRAY).scale(0.5)).setMaterial(new Material().setkR(0).setKd(0.5).setKs(0.5).setShininess(0)),
+                new Polygon( new Point(0, -150, -200), new Point(-10.76923076923,100,-180), new Point(-70, 100, -70) ,new Point(-70, -150, -70) ).setEmission(new Color(GRAY)).setMaterial(new Material().setkR(1).setKd(0.5).setKs(0.5).setShininess(100)));
+
+
+        scene.lights.add(new PointLight(new Color(100,250,255).scale(2), new Point(-90, -50, 40)) //
+                .setradius(5).setKl(4E-5).setKq(2E-7));
+
+        ImageWriter imageWriter = new ImageWriter("MP1_DontUseAntiAliasing", 1000, 1000);
+        camera.setImageWriter(imageWriter) //
+                .setRayTracer(new RayTracerBasic(scene)) //
+                .setUseAntiAliasing(false)
+                .setAliasingRays(10)
+                .setASS(true)
+                .setMultithreading(4)
+                .renderImage()
                 .writeToImage();
     }
 }

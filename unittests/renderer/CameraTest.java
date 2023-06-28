@@ -20,7 +20,7 @@ class CameraTest {
      * Test method for
      * {@link renderer.Camera#constructRayThroughPixel(int, int, int, int)}.
      */
-    @Test
+   @Test
     void testConstructRay() {
         Camera camera = new Camera(ZERO_POINT, new Vector(0, 0, -1), new Vector(0, -1, 0)).setViewPlaneDistance(10);
         String badRay = "Bad ray";

@@ -4,20 +4,21 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Vector;
 
+import java.util.List;
+
 /**
  * class for a direction light without position
- *
  * @author Eliaou and Etamar
  */
 public class DirectionalLight extends Light implements LightSource {
 
-    private Vector direction;
+    private final Vector direction;
 
     /**
-     * constructor of direction light
+     * constructor of direction light with the direction
      *
-     * @param intensity=the color of the light
-     * @param direction=the direction of the light
+     * @param intensity the color of the light
+     * @param direction the direction of the light
      */
     public DirectionalLight(Color intensity, Vector direction) {
         super(intensity);
@@ -26,7 +27,7 @@ public class DirectionalLight extends Light implements LightSource {
 
     @Override
     public Color getIntensity(Point p) {
-        return super.getIntensity();
+        return intensity;
     }
 
     @Override
@@ -37,5 +38,11 @@ public class DirectionalLight extends Light implements LightSource {
     @Override
     public double getDistance(Point point) {
         return Double.POSITIVE_INFINITY;
+    }
+
+    @Override
+    public Vector[][] getList(Point p,int numOfRays) {
+        Vector[][] v = {{getL(p)}};
+        return v;
     }
 }

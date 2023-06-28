@@ -6,9 +6,11 @@ import java.util.List;
 
 /**
  * class Cylinder
+ *  @author Eliaou and Etamar
  */
 public class Cylinder extends Tube{
 
+   // anti aliasing adaptative ss
     public double height;
 
     /**

@@ -4,39 +4,59 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Vector;
 
+import java.util.LinkedList;
+import java.util.List;
+
+
 /**
  * class for a point light with position and without direction
- *
  * @author Eliaou and Etamar
  */
 public class PointLight extends Light implements LightSource {
 
-    /**
-     * Position of the light
-     */
-    private Point position;
+    private final Point position;
+    protected double radius;
+    private double kC = 1;
+    private double kL = 0;
+    private double kQ = 0;
 
     /**
-     * Factors (kc, kl, kq) for attenuation with distance (d)
-     */
-    private double kC, kL, kQ;
-
-    /**
-     * constructor of point light
+     * constructor of point light with position and intensity
      *
-     * @param intensity=the color of the light
-     * @param position=the  position of the light
+     * @param intensity the color of the light
+     * @param position  the  position of the light
      */
     public PointLight(Color intensity, Point position) {
         super(intensity);
         this.position = position;
-        this.kC = 1;
-        this.kL = 0;
-        this.kQ = 0;
     }
 
     /**
-     * setter for kc
+     * constructor of point light with position and intensity
+     *
+     * @param intensity the color of the light
+     * @param position  the  position of the light
+     * @param radius    the radius of the light
+     */
+    public PointLight(Color intensity, Point position, double radius) {
+        super(intensity);
+        this.position = position;
+        this.radius = radius;
+    }
+
+    /**
+     * Sets the position of the light
+     *
+     * @param radius the radius of the light
+     * @return the point light
+     */
+    public PointLight setradius(double radius) {
+        this.radius = radius;
+        return this;
+    }
+
+    /**
+     * Sets the constant attenuation factor of the light
      *
      * @param kC the constant attenuation
      * @return the point light
@@ -47,7 +67,7 @@ public class PointLight extends Light implements LightSource {
     }
 
     /**
-     * setter for kl
+     * Sets the light's constant attenuation factor to the given value and returns this light.
      *
      * @param kL the linear attenuation
      * @return the point light
@@ -58,7 +78,7 @@ public class PointLight extends Light implements LightSource {
     }
 
     /**
-     * setter for kq
+     * Sets the quadratic attenuation factor of the light
      *
      * @param kQ the quadratic attenuation
      * @return the point light
@@ -68,36 +88,41 @@ public class PointLight extends Light implements LightSource {
         return this;
     }
 
-    /**
-     * returns the color of the light at the point according to its distance
-     * @param p the point
-     * @return
-     */
     @Override
     public Color getIntensity(Point p) {
         // IL / (kc + kl *distance + kq * distanceSquared)
-        double distance = p.distance(position);
         double distanceSquared = p.distanceSquared(position);
-
+        double distance = Math.sqrt(distanceSquared);
         double factor = kC + kL * distance + kQ * distanceSquared;
-
-        return getIntensity().reduce(factor);
+        return intensity.reduce(factor);
     }
 
-    /**
-     * return the vector from the light source to the point p
-     * @param p the point
-     * @return
-     */
     @Override
     public Vector getL(Point p) {
-        if (!p.equals(position))
-            return p.subtract(position).normalize();//retourne le vecteure de la source lumineuse au point p
-        return null;
+        return p.subtract(position).normalize();
     }
 
     @Override
     public double getDistance(Point point) {
         return position.distance(point);
+    }
+
+    @Override
+    public Vector[][] getList(Point p, int numOfRays) {
+        Vector[][] vectors = new Vector[2 * numOfRays][2 * numOfRays];
+        int row = 0;
+        int column;
+        double y = getL(p).getY();
+        for (double i = -radius; i < radius; i += radius / numOfRays, ++row) {
+            column = 0;
+            for (double j = -radius; j < radius; j += radius / numOfRays, ++column) {
+                if (i != 0 && j != 0) {
+                    Point point = position.add(new Vector(i, y, j));
+                    vectors[row][column] = (p.subtract(point).normalize());
+                } else
+                    vectors[row][column] = getL(p);
+            }
+        }
+        return vectors;
     }
 }

@@ -6,7 +6,7 @@ import static primitives.Util.isZero;
 
 /**
  * Unit tests for primitives.Point class
- * @author Eliaou , Etamar
+ * @author Eliaou and Etamar
  */
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -11,7 +11,6 @@ import primitives.Vector;
 public class SpotLight extends PointLight {
 
     private Vector direction;
-    private int narrowBeam = 1;
 
     /**
      * constructor of spotLight
@@ -32,18 +31,6 @@ public class SpotLight extends PointLight {
         double attenuation = l.dotProduct(direction);
 
         return pointIntensity.scale(Math.max(0, attenuation));
-    }
-
-
-    /**
-     * Sets the narrow beam of the spotlight
-     *
-     * @param narrowBeam The angle of the narrow beam in degrees.
-     * @return The SpotLight object.
-     */
-    public SpotLight setNarrowBeam(int narrowBeam) {
-        this.narrowBeam = narrowBeam;
-        return this;
     }
 
     @Override

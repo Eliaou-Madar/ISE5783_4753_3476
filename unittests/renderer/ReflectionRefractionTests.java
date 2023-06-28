@@ -120,21 +120,38 @@ public class ReflectionRefractionTests {
         scene.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.15)));
 
         scene.geometries.add(
-                new Sphere(new Point(0, -90, -120), 20d).setEmission(new Color(YELLOW)) //
-                        .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(80).setkT(0)),
-                new Sphere(new Point(0, -30, -130), 20d).setEmission(new Color(RED)) //
-                        .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(30).setkT(0.3)),
-                new Sphere(new Point(0, 30, -140), 20d).setEmission(new Color(GREEN)) //
-                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setkT(0.5)),
-                new Sphere(new Point(0, 90, -150), 20d).setEmission(new Color(RED)) //
+                new Sphere(new Point(0, -100, -120), 20d).setEmission(new Color(YELLOW).scale(0.5)) //
+                        .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(80)),
+                new Sphere(new Point(0, -40, -130), 20d).setEmission(new Color(RED).scale(0.6)) //
+                        .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(30)),
+                new Sphere(new Point(0, 30, -140), 20d).setEmission(new Color(BLACK)) //
+                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setkT(0.).setkR(1)),
+                new Sphere(new Point(0, 90, -150), 20d).setEmission(new Color(RED).scale(0.6)) //
                         .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setkT(0.8)),
 
-        new Polygon( new Point(75, -150, -200), new Point(75, 95, -178), new Point(0, 95, -178),new Point(0, -150, -200)).setEmission(new Color(GRAY).scale(0.5)).setMaterial(new Material().setkR(0).setKd(0.5).setKs(0.5).setShininess(0)),
-        new Polygon( new Point(0, -150, -200), new Point(-10.76923076923,100,-180), new Point(-70, 100, -70) ,new Point(-70, -150, -70) ).setEmission(new Color(GRAY)).setMaterial(new Material().setkR(1).setKd(0.5).setKs(0.5).setShininess(100)));
+                new Sphere(new Point(10, -120, -100), 10d).setEmission(new Color(BLACK)) //
+                        .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(30).setkR(1).setkT(0.5)),
+                new Sphere(new Point(20, -80, -160), 7d).setEmission(new Color(255,91,54).scale(0.3)) //
+                        .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(30).setkR(0.8)),
+                new Sphere(new Point(15, 0, -120), 8d).setEmission(new Color(190,2,255).scale(0.6)) //
+                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30)),
+                new Sphere(new Point(5, 40, -100), 6d).setEmission(new Color(255,90,154).scale(0.6)) //
+                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30)),
+                new Sphere(new Point(10, -120, -160), 10d).setEmission(new Color(0,255,14).scale(0.3)) //
+                        .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(80).setkT(0.4)),
+
+        new Polygon( new Point(75, -150, -200), new Point(75, 95, -178), new Point(0, 95, -178),new Point(0, -150, -200)).setEmission(new Color(GRAY).scale(0.2)).setMaterial(new Material().setkR(0).setKd(0.5).setKs(0.5).setShininess(0)),
+        new Polygon( new Point(0, -150, -200), new Point(-10.76923076923,100,-180), new Point(-70, 100, -70) ,new Point(-70, -150, -70) ).setEmission(new Color(GRAY).scale(0.2)).setMaterial(new Material().setkR(1).setKd(0.2).setKs(0.3).setShininess(30)));
 
 
         scene.lights.add(new PointLight(new Color(100,250,255).scale(2), new Point(-90, -50, 40)) //
                 .setradius(5).setKl(4E-5).setKq(2E-7));
+
+       scene.lights.add(new SpotLight(new Color(22,174,255).scale(0.5), new Point(800, 0, -100) , new Vector(-1, 0, 0)) //
+                .setradius(5).setKl(4E-5).setKq(2E-7));
+
+        scene.lights.add(new DirectionalLight(new Color(BLUE).scale(2) , new Vector(0, 1, 0)) //
+               );
 
         ImageWriter imageWriter = new ImageWriter("MP1_UseAntiAliasing", 1000, 1000);
         camera.setImageWriter(imageWriter) //
@@ -158,21 +175,38 @@ public class ReflectionRefractionTests {
         scene.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.15)));
 
         scene.geometries.add(
-                new Sphere(new Point(0, -90, -120), 20d).setEmission(new Color(YELLOW)) //
-                        .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(80).setkT(0)),
-                new Sphere(new Point(0, -30, -130), 20d).setEmission(new Color(RED)) //
-                        .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(30).setkT(0.3)),
-                new Sphere(new Point(0, 30, -140), 20d).setEmission(new Color(GREEN)) //
-                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setkT(0.5)),
-                new Sphere(new Point(0, 90, -150), 20d).setEmission(new Color(RED)) //
+                new Sphere(new Point(0, -100, -120), 20d).setEmission(new Color(YELLOW).scale(0.5)) //
+                        .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(80)),
+                new Sphere(new Point(0, -40, -130), 20d).setEmission(new Color(RED).scale(0.6)) //
+                        .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(30)),
+                new Sphere(new Point(0, 30, -140), 20d).setEmission(new Color(BLACK)) //
+                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setkT(0.).setkR(1)),
+                new Sphere(new Point(0, 90, -150), 20d).setEmission(new Color(RED).scale(0.6)) //
                         .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setkT(0.8)),
 
-                new Polygon( new Point(75, -150, -200), new Point(75, 95, -178), new Point(0, 95, -178),new Point(0, -150, -200)).setEmission(new Color(GRAY).scale(0.5)).setMaterial(new Material().setkR(0).setKd(0.5).setKs(0.5).setShininess(0)),
-                new Polygon( new Point(0, -150, -200), new Point(-10.76923076923,100,-180), new Point(-70, 100, -70) ,new Point(-70, -150, -70) ).setEmission(new Color(GRAY)).setMaterial(new Material().setkR(1).setKd(0.5).setKs(0.5).setShininess(100)));
+                new Sphere(new Point(10, -120, -100), 10d).setEmission(new Color(BLACK)) //
+                        .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(30).setkR(1).setkT(0.5)),
+                new Sphere(new Point(20, -80, -160), 7d).setEmission(new Color(255, 91, 54).scale(0.3)) //
+                        .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(30).setkR(0.8)),
+                new Sphere(new Point(15, 0, -120), 8d).setEmission(new Color(190, 2, 255).scale(0.6)) //
+                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30)),
+                new Sphere(new Point(5, 40, -100), 6d).setEmission(new Color(255, 90, 154).scale(0.6)) //
+                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30)),
+                new Sphere(new Point(10, -120, -160), 10d).setEmission(new Color(0, 255, 14).scale(0.3)) //
+                        .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(80).setkT(0.4)),
+
+                new Polygon(new Point(75, -150, -200), new Point(75, 95, -178), new Point(0, 95, -178), new Point(0, -150, -200)).setEmission(new Color(GRAY).scale(0.2)).setMaterial(new Material().setkR(0).setKd(0.5).setKs(0.5).setShininess(0)),
+                new Polygon(new Point(0, -150, -200), new Point(-10.76923076923, 100, -180), new Point(-70, 100, -70), new Point(-70, -150, -70)).setEmission(new Color(GRAY).scale(0.2)).setMaterial(new Material().setkR(1).setKd(0.2).setKs(0.3).setShininess(30)));
 
 
-        scene.lights.add(new PointLight(new Color(100,250,255).scale(2), new Point(-90, -50, 40)) //
+        scene.lights.add(new PointLight(new Color(100, 250, 255).scale(2), new Point(-90, -50, 40)) //
                 .setradius(5).setKl(4E-5).setKq(2E-7));
+
+        scene.lights.add(new SpotLight(new Color(22, 174, 255).scale(0.5), new Point(800, 0, -100), new Vector(-1, 0, 0)) //
+                .setradius(5).setKl(4E-5).setKq(2E-7));
+
+        scene.lights.add(new DirectionalLight(new Color(BLUE).scale(2), new Vector(0, 1, 0)) //
+        );
 
         ImageWriter imageWriter = new ImageWriter("MP1_DontUseAntiAliasing", 1000, 1000);
         camera.setImageWriter(imageWriter) //

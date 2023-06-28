@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Testing integration of constructing rays and intersections.
  *
- * @author Elhanan Tweig & Yossef Cohen-Salmon
+ * @author Eliaou and Etamar
  */
 public class RayConstructionAndIntersectionTest {
 

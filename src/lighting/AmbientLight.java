@@ -24,10 +24,6 @@ public class AmbientLight extends Light {
         super(iA.scale(kA));
     }
 
-    public AmbientLight(Color Ia,double Ka){
-        super(Ia.scale(Ka));
-    }
-
     /**
      * Constructs ambient light of complete darkness
      */

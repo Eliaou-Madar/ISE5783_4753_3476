@@ -34,12 +34,5 @@ public interface LightSource {
      */
     double getDistance(Point point);
 
-    /**
-     * Get the direction of the light from a point
-     *
-     * @param p         the point
-     * @param numOfRays the number of rays
-     * @return the direction
-     */
-    Vector[][] getList(Point p, int numOfRays);
+
 }

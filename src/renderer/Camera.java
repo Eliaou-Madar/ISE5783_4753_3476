@@ -15,23 +15,28 @@ import static primitives.Util.isZero;
 
 /**
  * This class represents a camera in 3D space.
+ * @author Eliaou and Etamar
  */
 public class Camera {
     private Point p0;
-    private Vector vTo, vUp, vRight;
-    private double height, width, distance;
+    private Vector vTo;
+    private Vector vUp;
+    private Vector vRight;
+    private double height;
+    private double width;
+    private double distance;
     private ImageWriter imageWriter;
     private RayTracerBase rayTracer;
     private boolean useAntiAliasing = false;
-    private int numOfRays = 9;       // cast 81 rays in real
-   // private boolean threadedRendering = false;
+    private int numOfRays = 10;
     private PixelManager pixelManager;
-
     private threadPool<Pixel> threadPool = null;
+
     /**
      * Next pixel of the scene
      */
     private Pixel nextPixel = null;
+
     /**
      * turn on - off adaptive super sampling
      */
@@ -64,72 +69,18 @@ public class Camera {
         this.vRight = vTo.crossProduct(vUp).normalize();
     }
 
-    //region Getters
-    /**
-     * The function returns the point of the camera
-     *
-     * @return point on the camera.
-     */
-    public Point getP0() {
-        return p0;
-    }
 
     /**
-     * The function returns the vTo vector of the camera
+     *  The function sets the distance between the camera and the view plane.
      *
-     * @return vTo of camera.
+     * @param distance - The new distance between the camera and the view plane
+     * @return the updated camera with the new updated values.
      */
-    public Vector getVto() {
-        return vTo;
+    public Camera setViewPlaneDistance(double distance) {
+        this.distance = distance;
+        return this;
     }
 
-    /**
-     * The function returns the vUp vector of the camera
-     *
-     * @return vUp of camera.
-     */
-    public Vector getVup() {
-        return vUp;
-    }
-
-    /**
-     * The function returns the vRight vector of the camera
-     *
-     * @return vRight of camera.
-     */
-    public Vector getVright() {
-        return vRight;
-    }
-
-    /**
-     * The function returns the height of the view plane.
-     *
-     * @return the height of the view plane.
-     */
-    public double getHeight() {
-        return height;
-    }
-
-    /**
-     * The function returns the width of the view plane.
-     *
-     * @return the width of the view plane.
-     */
-    public double getWidth() {
-        return width;
-    }
-
-    /**
-     * The function returns the distance between the camera and the view plane.
-     *
-     * @return the distance between the camera and the view plane.
-     */
-    public double getDistance() {
-        return distance;
-    }
-    //endregion
-
-    //region Setters (Builder Pattern)
     /**
      *  The function sets the size of the view plane.
      *
@@ -144,13 +95,13 @@ public class Camera {
     }
 
     /**
-     *  The function sets the distance between the camera and the view plane.
+     *  The function sets the rayTracer of the camera.
      *
-     * @param distance - The new distance between the camera and the view plane
+     * @param rayTracer - The new rayTracer
      * @return the updated camera with the new updated values.
      */
-    public Camera setViewPlaneDistance(double distance) {
-        this.distance = distance;
+    public Camera setRayTracer(RayTracerBase rayTracer) {
+        this.rayTracer = rayTracer;
         return this;
     }
 
@@ -164,18 +115,6 @@ public class Camera {
         this.imageWriter = imageWriter;
         return this;
     }
-
-    /**
-     *  The function sets the rayTracer of the camera.
-     *
-     * @param rayTracer - The new rayTracer
-     * @return the updated camera with the new updated values.
-     */
-    public Camera setRayTracer(RayTracerBase rayTracer) {
-        this.rayTracer = rayTracer;
-        return this;
-    }
-
     /**
      *  The function sets the number of aliasing rays of the camera.
      *
@@ -199,9 +138,8 @@ public class Camera {
         this.useAntiAliasing = useAntiAliasing;
         return this;
     }
-    //endregion
 
-    //region Rendering methods
+
     /**
      * Renders the image pixel by pixel into the imageWriter
      */
@@ -246,6 +184,31 @@ public class Camera {
         return this;
     }
 
+    /** Constructs a ray for a given pixel in the view plane.
+     *
+     * @param nX the number of pixels in the x-axis direction of the view plane
+     * @param nY the number of pixels in the y-axis direction of the view plane
+     * @param j the index of the pixel on the x-axis
+     * @param i the index of the pixel on the y-axis
+     * @return a Ray object for the given pixel
+     */
+    public Ray constructRayThroughPixel(int nX, int nY, int j, int i) {
+        Point pc = p0.add(vTo.scale(distance));
+        double rY = height / nY;
+        double rX = width / nX;
+        Point pIJ = pc;
+        double jX = (j - (nX - 1d) / 2) * rX;
+        if (!Util.isZero(jX)) {
+            pIJ = pIJ.add(vRight.scale(jX));
+        }
+        double iY = -(i - (nY - 1d) / 2) * rY;
+        if (!Util.isZero(iY)) {
+            pIJ = pIJ.add(vUp.scale(iY));
+        }
+        Vector vIJ = pIJ.subtract(p0);
+        return new Ray(p0, vIJ);
+    }
+
     /**
      * Print a grid on the image
      *
@@ -276,33 +239,7 @@ public class Camera {
 
         imageWriter.writeToImage();
     }
-    //endregion
 
-    //region Rays methods
-    /** Constructs a ray for a given pixel in the view plane.
-     *
-     * @param nX the number of pixels in the x-axis direction of the view plane
-     * @param nY the number of pixels in the y-axis direction of the view plane
-     * @param j the index of the pixel on the x-axis
-     * @param i the index of the pixel on the y-axis
-     * @return a Ray object for the given pixel
-     */
-    public Ray constructRayThroughPixel(int nX, int nY, int j, int i) {
-        Point pc = p0.add(vTo.scale(distance));
-        double rY = height / nY;
-        double rX = width / nX;
-        Point pIJ = pc;
-        double jX = (j - (nX - 1d) / 2) * rX;
-        if (!Util.isZero(jX)) {
-            pIJ = pIJ.add(vRight.scale(jX));
-        }
-        double iY = -(i - (nY - 1d) / 2) * rY;
-        if (!Util.isZero(iY)) {
-            pIJ = pIJ.add(vUp.scale(iY));
-        }
-        Vector vIJ = pIJ.subtract(p0);
-        return new Ray(p0, vIJ);
-    }
 
     /**
      * Constructs a list of rays for a given pixel coordinate.
@@ -319,22 +256,22 @@ public class Camera {
         if (!useAntiAliasing)
             return List.of(constructRayThroughPixel(nX, nY, j, i));
 
-        // Choosing the biggest scalar to scale the vectors.
+        // Choisir le plus grand scalaire pour mettre à l'échelle les vecteurs.
         double rY = height / (2 * nY * numOfRays * 0.05 * distance),
                 rX = width / (2 * nX * numOfRays * 0.05 * distance);
 
         List<Ray> rays = new LinkedList<>();
-        // Constructing (rays * rays) rays in random directions.
+        // Construction de (rayons * rayons) rayons dans des directions aléatoires.
         for (int k = 0; k < numOfRays; k++) {
             for (int l = 0; l < numOfRays; l++) {
 
-                // Construct a ray to the middle of the current subpixel.
+                // Construire un rayon au milieu du sous-pixel courant.
                 Ray ray = constructRayThroughPixel(nX * numOfRays, nY * numOfRays, numOfRays * j + k, numOfRays * i + l);
 
-                // Create a random direction vector.
+                // Créez un vecteur de direction aléatoire.
                 Vector rnd = getsRandomVector(rY, rX);
 
-                // Create a new ray with the new random vector to the ray.
+                // Créez un nouveau rayon avec le nouveau vecteur aléatoire au rayon.
                 rays.add(new Ray(ray.getP0(), ray.getDir().add(rnd)));
             }
         }

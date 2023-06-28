@@ -107,22 +107,4 @@ public class PointLight extends Light implements LightSource {
         return position.distance(point);
     }
 
-    @Override
-    public Vector[][] getList(Point p, int numOfRays) {
-        Vector[][] vectors = new Vector[2 * numOfRays][2 * numOfRays];
-        int row = 0;
-        int column;
-        double y = getL(p).getY();
-        for (double i = -radius; i < radius; i += radius / numOfRays, ++row) {
-            column = 0;
-            for (double j = -radius; j < radius; j += radius / numOfRays, ++column) {
-                if (i != 0 && j != 0) {
-                    Point point = position.add(new Vector(i, y, j));
-                    vectors[row][column] = (p.subtract(point).normalize());
-                } else
-                    vectors[row][column] = getL(p);
-            }
-        }
-        return vectors;
-    }
 }

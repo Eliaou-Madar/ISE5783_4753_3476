@@ -2,7 +2,7 @@ package renderer;
 
 import primitives.*;
 import multiThreading.threadPool;
-
+import static java.lang.System.out;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.MissingResourceException;
@@ -176,6 +176,7 @@ public class Camera {
         }
         else {
             for (int i = 0; i < nY; i++) {
+                out.println(i + "/" + nY);
                 for (int j = 0; j < nX; j++) {
                     writePixel.accept(j, i);
                 }
@@ -291,9 +292,9 @@ public class Camera {
     private Color calcAveragePixelColor(int nX, int nY, int j, int i) {
         List<Ray> rays = constructRays(nX, nY, j, i);
         Color color = Color.BLACK;
-        for (Ray ray : rays)
+        for (Ray ray : rays)//pour tous les rayon aleatoire que lon a cree on va chercher la couleure et les aditionne
             color = color.add(rayTracer.traceRay(ray,isASS));
-        return color.reduce(rays.size());
+        return color.reduce(rays.size());//on divise la couleure par le nombre se rays
     }
 
     /**
@@ -439,7 +440,7 @@ public class Camera {
      * @return If printed the new percent, returns the new percent. Else, returns {@code lastPercent}.
      */
     private int printPercent(int currentPixel, int pixels, int lastPercent) {
-        int percent = currentPixel * 100 / pixels;
+        int percent = currentPixel * 99 / pixels;
         if (percent > lastPercent) {
             System.out.printf("%02d%%\n", percent);
             System.out.flush();

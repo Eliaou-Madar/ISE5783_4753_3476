@@ -159,8 +159,8 @@ public class ReflectionRefractionTests {
         camera.setImageWriter(imageWriter) //
                 .setRayTracer(new RayTracerBasic(scene)) //
                 .setUseAntiAliasing(true)
-                .setAliasingRays(10)
-                .setASS(true)
+                .setNumOfRays(10)
+                .setASS(false)
                 .setMultithreading(4)
                 .renderImage()
                 .writeToImage();
@@ -214,7 +214,7 @@ public class ReflectionRefractionTests {
         camera.setImageWriter(imageWriter) //
                 .setRayTracer(new RayTracerBasic(scene)) //
                 .setUseAntiAliasing(false)
-                .setAliasingRays(10)
+                .setNumOfRays(10)
                 .setASS(true)
                 .setMultithreading(4)
                 .renderImage()
@@ -269,7 +269,7 @@ public class ReflectionRefractionTests {
         camera.setImageWriter(imageWriter) //
                 .setRayTracer(new RayTracerBasic(scene)) //
                 .setUseAntiAliasing(false)
-                .setAliasingRays(10)
+                .setNumOfRays(10)
                 .setASS(true)
                 .setMultithreading(4)
                 .renderImage()
@@ -324,7 +324,7 @@ public class ReflectionRefractionTests {
         camera.setImageWriter(imageWriter) //
                 .setRayTracer(new RayTracerBasic(scene)) //
                 .setUseAntiAliasing(false)
-                .setAliasingRays(10)
+                .setNumOfRays(10)
                 .setASS(true)
                 .setMultithreading(4)
                 .renderImage()

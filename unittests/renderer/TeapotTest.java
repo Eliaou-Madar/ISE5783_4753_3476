@@ -1,4 +1,4 @@
-package unittests.special;
+
 
 import static java.awt.Color.YELLOW;
 
@@ -1570,7 +1570,7 @@ public class TeapotTest {
 
         camera.setRayTracer(new RayTracerBasic(scene))
                 .setUseAntiAliasing(true)
-                .setAliasingRays(4)
+                .setNumOfRays(4)
                 .renderImage()
                 .printGrid(50, new Color(YELLOW))
                 .writeToImage();

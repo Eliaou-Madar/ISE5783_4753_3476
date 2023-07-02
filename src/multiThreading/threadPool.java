@@ -5,7 +5,10 @@ import java.util.MissingResourceException;
 
 /**
  * This class is handling a thread pool.
- *  @author Eliaou and Etamar
+ * the "threadPool" class provides a way to manage a pool of threads and run jobs concurrently using the available threads.
+ * It allows setting the number of threads, the implementations of the parameter and worker interfaces,
+ * and provides methods for performing and joining pool threads.
+ * @author Eliaou and Etamar
  */
 public class threadPool<T> {
     private static final int SPARE_THREADS = 2;
@@ -19,8 +22,8 @@ public class threadPool<T> {
      * Sets the number of threads to use all the cores minus 2 for spare (it will always be greater than 0).
      */
     public threadPool() {
-        _numThreads = Runtime.getRuntime().availableProcessors() - SPARE_THREADS;
-        if (_numThreads < 2) {
+        _numThreads = Runtime.getRuntime().availableProcessors() - SPARE_THREADS; //soustrayant 2 pour les threads de réserve
+        if (_numThreads < 2) {//Il s'assure que le nombre de threads sera toujours supérieur à zéro.
             _numThreads = 1;
         }
     }
@@ -34,9 +37,10 @@ public class threadPool<T> {
 
     /**
      * Returns if the thread pool is currently using any threads.
+     * Returns si le pool de threads utilise currently des threads.
      */
     public boolean isRunning() {
-        if (_threads == null) {
+        if (_threads == null) {//vérifiant si au moins l'un des threads est vivant.
             return false;
         }
 
@@ -65,7 +69,7 @@ public class threadPool<T> {
      * @return the current thread pool
      */
     public threadPool<T> setParamGetter(ParamGetter<T> getter) {
-        if (getter == null) {
+        if (getter == null) {//si l'objet passé en paramètre est null et lance une exception
             throw new NullPointerException("getter cannot be null");
         }
 
@@ -78,6 +82,7 @@ public class threadPool<T> {
      * Chaining method for setting the threads' job.
      * @param target implementation of {@link Runnable<T>}
      * @exception NullPointerException when {@code target} is {@code null}
+     * "Runnable<T>" représente le travail à effectuer par les threads du pool.
      * @return the current thread pool
      */
     public threadPool<T> setTarget(Runnable<T> target) {
@@ -140,6 +145,7 @@ public class threadPool<T> {
             } catch (Exception e) { }
         }
         _threads = null;
+        //elle attend que chaque thread se termine en utilisant la méthode "join" et réinitialise le tableau des threads.
     }
 
     /**

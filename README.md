@@ -11,7 +11,9 @@ Soft Shadows: Enhanced the realism of shadows by implementing soft shadow techni
 Multi-threading: Improved system performance by enabling multi-threading.
 Adaptive Supersampling: Optimized rendering performance and quality through adaptive supersampling.
 This project reflects our commitment to applying robust software engineering principles to develop high-quality and efficient graphical systems.
+
 Examples of photos:
+
 ![refractionTwoSpheres](https://github.com/user-attachments/assets/b451b0bf-161d-4142-9b09-ac500f4ee301)
 ![refractionShadow](https://github.com/user-attachments/assets/b077a1e1-72cb-4410-ad32-f49b97bd2689)
 ![lightTrianglesPoint](https://github.com/user-attachments/assets/2da3790b-7887-4838-9fc7-ac68f502b827)
@@ -19,6 +21,7 @@ Examples of photos:
 ![shadowTrianglesSphere](https://github.com/user-attachments/assets/d0d89011-3af8-4d04-92f0-a51cd2129242)
 
 The final picture:
+
 ![MP1_UseAntiAliasing](https://github.com/user-attachments/assets/01291213-3ef6-4f27-ab61-c6df42888044)
 ![MP1_DontUseAntiAliasing_change_of_angle_2](https://github.com/user-attachments/assets/e7c09c7a-6fc6-4c21-a71b-7e36f567e3f9)
 ![MP1_DontUseAntiAliasing_change_of_angle_1](https://github.com/user-attachments/assets/cf1a8aa9-bee2-4556-abb1-9981d6b313ab)
